@@ -70,13 +70,12 @@ if __name__ == '__main__':
         t_next = get_timestamp(t_start)
         p_next = get_full_path(t_next)    
         if t_next[-5:] in time_list:
-            if p_next not in finished_file:
-                try:
-                    file_size = os.path.getsize(p_next)
-                    if file_size>50:
-                        fout.write(p_next+'\n')
-                except FileNotFoundError:
-                    pass
+            try:
+                file_size = os.path.getsize(p_next)
+                if file_size>50:
+                    fout.write(p_next+'\n')
+            except FileNotFoundError:
+                pass
         t_start = t_next
     print(num4files)
     print('Should be {} files to run.'.format(num4files/96*21-5000-27-1))
