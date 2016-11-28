@@ -42,6 +42,25 @@ if __name__ == '__main__':
         if 'retweeted_status' in data:
             continue
 
+        ####### filtering deleted & filtering none English tweet --1
+        # block tweets not written in English
+        if 'lang' in data:
+            if data['lang'] != 'en':
+                continue
+
+        ###### filtering retweets --2 & filtering none English ---2
+        #block reTweets using a regex    
+        try:
+            txt  = data['text']
+        except KeyError:
+            continue
+        txt  = txt.replace('\n','') 
+        if retweet.search(txt):   
+            continue
+        if not blt.is_english(txt):
+            continue
+
+
         ####### filtering tweets without hashtage
         if 'entities' in data:
             if len(data['entities']['hashtags']):
@@ -51,7 +70,8 @@ if __name__ == '__main__':
                 for i in range(n_hashtag):
                     tag_i = data['entities']['hashtags'][i]["text"]
                     lineInfo['hashtags'].append(tag_i)
-                    lineInfo['lang'] = data['lang']
+                    lineInfo['text']    = data['text']
+                    lineInfo['user_lang'] = data['user']['lang']
                     lineInfo['created_at']  = data['created_at']
                     lineInfo['timestamp_ms'] = data['timestamp_ms'] 
                     lineInfo['retweet_count'] = data['retweet_count']
