@@ -70,7 +70,7 @@ if __name__ == '__main__':
         if 'entities' in data:
             if len(data['entities']['hashtags']):
                 lineInfo = {'hashtags':[]} 
-                if tweetsource.serach(data['source']):
+                if tweetsource.search(data['source']):
                     # appending hashtags into the dictionary
                     n_hashtag = len(data['entities']['hashtags'])
                     for i in range(n_hashtag):
