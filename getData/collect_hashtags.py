@@ -71,6 +71,7 @@ if __name__ == '__main__':
                     tag_i = data['entities']['hashtags'][i]["text"]
                     lineInfo['hashtags'].append(tag_i)
                     lineInfo['text']    = data['text']
+                    lineInfo['source']  = data['source']
                     lineInfo['user_lang'] = data['user']['lang']
                     lineInfo['created_at']  = data['created_at']
                     lineInfo['timestamp_ms'] = data['timestamp_ms'] 
