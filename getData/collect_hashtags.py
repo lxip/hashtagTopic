@@ -30,6 +30,11 @@ if __name__ == '__main__':
 
     retweet = re.compile('(^|\s+)[rR][tT](\s+|$)') #match retweet
 
+    tweetsource_str = 'Twitter for iPhone|Twitter Web Client|TweetDeck|Twitter for Android|Twitter for Website| \
+                    Twitter for iPad|Twitter for BlackBerry|Twitter for Android Tablets|Mobile Web|iOS|twitterfeed \
+                    IFTTT|TweetAdder|Hootsuite|SocialOomph|dlvr.it|Instagram|Facebook'
+    tweetsource = re.compile(tweetsource_str)
+
     #---parsing & adding---
     for line in stdin:
         try:
@@ -65,11 +70,12 @@ if __name__ == '__main__':
         if 'entities' in data:
             if len(data['entities']['hashtags']):
                 lineInfo = {'hashtags':[]} 
-                # appending hashtags into the dictionary
-                n_hashtag = len(data['entities']['hashtags'])
-                for i in range(n_hashtag):
-                    tag_i = data['entities']['hashtags'][i]["text"]
-                    lineInfo['hashtags'].append(tag_i)
+                if tweetsource.serach(data['source']):
+                    # appending hashtags into the dictionary
+                    n_hashtag = len(data['entities']['hashtags'])
+                    for i in range(n_hashtag):
+                        tag_i = data['entities']['hashtags'][i]["text"]
+                        lineInfo['hashtags'].append(tag_i)
                     lineInfo['text']    = data['text']
                     lineInfo['source']  = data['source']
                     lineInfo['user_lang'] = data['user']['lang']
@@ -77,6 +83,6 @@ if __name__ == '__main__':
                     lineInfo['timestamp_ms'] = data['timestamp_ms'] 
                     lineInfo['retweet_count'] = data['retweet_count']
                     lineInfo['favorite_count'] = data['favorite_count']
-                json.dump(lineInfo, fout)
-                fout.write('\n')
+                    json.dump(lineInfo, fout)
+                    fout.write('\n')
     fout.close()
