@@ -63,7 +63,7 @@ if __name__ == '__main__':
     print(len(time_list))
     print(num4files)
     
-    fout = open('../data/file2run_2014-11-01_2016-11-11.txt','wt')
+    fout = open('../file2run_2014-11-01_2016-11-11.txt','wt')
     fout.write(p_start+'\n')
 
     for i in range(num4files-1):
@@ -77,8 +77,6 @@ if __name__ == '__main__':
             except FileNotFoundError:
                 pass
         t_start = t_next
-    print(num4files)
-    print('Should be {} files to run.'.format(num4files/96*21-5000-27-1))
     fout.close()
 
     print("FINISHED in {:.2f} seconds.".format((time.time() - start_time)) )
