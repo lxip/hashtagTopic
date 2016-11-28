@@ -57,4 +57,5 @@ if __name__ == '__main__':
                     lineInfo['retweet_count'] = data['retweet_count']
                     lineInfo['favorite_count'] = data['favorite_count']
                 json.dump(lineInfo, fout)
+                fout.write('\n')
     fout.close()
