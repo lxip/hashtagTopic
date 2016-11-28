@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     tweetsource_str = 'Twitter for iPhone|Twitter Web Client|TweetDeck|Twitter for Android|Twitter for Website| \
                     Twitter for iPad|Twitter for BlackBerry|Twitter for Android Tablets|Mobile Web|iOS|twitterfeed \
-                    IFTTT|TweetAdder|Hootsuite|SocialOomph|dlvr.it|Instagram|Facebook'
+                    |Instagram|Facebook'
     tweetsource = re.compile(tweetsource_str)
 
     #---parsing & adding---
