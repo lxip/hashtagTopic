@@ -81,8 +81,8 @@ if __name__ == '__main__':
                     lineInfo['user_lang'] = data['user']['lang']
                     lineInfo['created_at']  = data['created_at']
                     lineInfo['timestamp_ms'] = data['timestamp_ms'] 
-                    lineInfo['retweet_count'] = data['retweet_count']
-                    lineInfo['favorite_count'] = data['favorite_count']
+                    # lineInfo['retweet_count'] = data['retweet_count']
+                    # lineInfo['favorite_count'] = data['favorite_count']
                     json.dump(lineInfo, fout)
                     fout.write('\n')
     fout.close()
