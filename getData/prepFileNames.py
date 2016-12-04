@@ -56,14 +56,14 @@ def chosen_timeperiod(start,end):
 if __name__ == '__main__':
     start_time = time.time()
     
-    t_start   = '2014-11-11-00-00'
+    t_start   = '2016-11-12-00-00'
     p_start   = get_full_path(t_start)
-    num4files = get_num4files('2014-11-11-00-00','2016-11-11-23-45')
+    num4files = get_num4files('2016-11-12-00-00','2016-11-15-23-45')
     time_list = chosen_timeperiod('00-00','23-45')
     print(len(time_list))
     print(num4files)
     
-    fout = open('../file2run_2014-11-01_2016-11-11.txt','wt')
+    fout = open('../file2run_2016-11-12_2016-11-15.txt','wt')
     fout.write(p_start+'\n')
 
     for i in range(num4files-1):
