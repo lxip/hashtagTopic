@@ -26,7 +26,7 @@ if __name__ == '__main__':
     file_path = argv[1]
     timestamp = file_path[-19:-3]
 
-    fout   = gzip.open('../hashtagStore_plus/{}_hashtags.json.gz'.format(timestamp), 'wt')
+    fout   = gzip.open('../hashtagStore_filter/{}_hashtags.json.gz'.format(timestamp), 'wt')
 
     retweet = re.compile('(^|\s+)[rR][tT](\s+|$)') #match retweet
 
