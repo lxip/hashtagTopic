@@ -66,23 +66,30 @@ if __name__ == '__main__':
             continue
 
 
-        ####### filtering tweets without hashtage
+        
         if 'entities' in data:
-            if len(data['entities']['hashtags']):
-                lineInfo = {'hashtags':[]} 
-                if tweetsource.search(data['source']):
-                    # appending hashtags into the dictionary
-                    n_hashtag = len(data['entities']['hashtags'])
-                    for i in range(n_hashtag):
-                        tag_i = data['entities']['hashtags'][i]["text"]
-                        lineInfo['hashtags'].append(tag_i)
-                    lineInfo['text']    = data['text']
-                    lineInfo['source']  = data['source']
-                    lineInfo['user_lang'] = data['user']['lang']
-                    lineInfo['created_at']  = data['created_at']
-                    lineInfo['timestamp_ms'] = data['timestamp_ms'] 
-                    # lineInfo['retweet_count'] = data['retweet_count']
-                    # lineInfo['favorite_count'] = data['favorite_count']
-                    json.dump(lineInfo, fout)
-                    fout.write('\n')
+####### newly added filter for bad words
+        ####### filtering tweets with URL or MEDIA link
+            if not len(data['entities']['urls']):
+                try:
+                    len(data['entities']['media'])
+                except KeyError:
+                    ####### filtering tweets without hashtag
+                    if len(data['entities']['hashtags']):
+                        lineInfo = {'hashtags':[]} 
+                        if tweetsource.search(data['source']):
+                            # appending hashtags into the dictionary
+                            n_hashtag = len(data['entities']['hashtags'])
+                            for i in range(n_hashtag):
+                                tag_i = data['entities']['hashtags'][i]["text"]
+                                lineInfo['hashtags'].append(tag_i)
+                            lineInfo['text']    = data['text']
+                            lineInfo['source']  = data['source']
+                            lineInfo['user_lang'] = data['user']['lang']
+                            lineInfo['created_at']  = data['created_at']
+                            lineInfo['timestamp_ms'] = data['timestamp_ms'] 
+                            # lineInfo['retweet_count'] = data['retweet_count']
+                            # lineInfo['favorite_count'] = data['favorite_count']
+                            json.dump(lineInfo, fout)
+                            fout.write('\n')
     fout.close()

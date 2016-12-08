@@ -32,7 +32,7 @@ def send(f):
 
 if __name__ == '__main__':
     jobs = []
-    for line in open('../file2run_2016-11-12_2016-11-15.txt','rt'):
+    for line in open('../file2run_2015-11-11_2016-11-15.txt','rt'):
         jobs.append(line.strip())
     pop = jobs.pop
 
