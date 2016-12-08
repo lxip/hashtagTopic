@@ -70,10 +70,8 @@ if __name__ == '__main__':
         if 'entities' in data:
 ####### newly added filter for bad words
         ####### filtering tweets with URL or MEDIA link
-            if not len(data['entities']['urls']):
-                try:
-                    len(data['entities']['media'])
-                except KeyError:
+            if 'media' not in data['entities']:
+                if not len(data['entities']['urls']):
                     ####### filtering tweets without hashtag
                     if len(data['entities']['hashtags']):
                         lineInfo = {'hashtags':[]} 
