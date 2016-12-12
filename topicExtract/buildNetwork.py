@@ -27,7 +27,7 @@ import bltools as blt
 
 def getFilename(filedate):
     """Return filename in certain directory."""
-    filename = check_output('find ./data_tag2count -type f -name "{}*"'.format(filedate),shell=True)
+    filename = check_output('find ./data_tag2count -type f -name "{}*_fword.*"'.format(filedate),shell=True)
     return filename
 
 def count_lines(filepath):
@@ -55,7 +55,7 @@ if __name__ == '__main__':
         countFile2open = getFilename(filedate).decode("utf-8").strip()
         # print(countFile2open)
         countfileLines = count_lines(countFile2open)
-        cutoff = int(0.0005*countfileLines) #only see the top 0.05% hashtags
+        cutoff = int(1*countfileLines) #only see the top 0.05% hashtags
         print(cutoff)
         with open(countFile2open,'rt') as fi:
             for line in islice(fi,cutoff):
@@ -76,7 +76,7 @@ if __name__ == '__main__':
                         for edge in edges:
                             Ghashtag.add_edge(edge[0],edge[1])
         print('FINISH BUILDING NETWORK...')
-        nx.write_graphml(Ghashtag, "./data_network/{}_network.graphml".format(filedate))
+        nx.write_graphml(Ghashtag, "./data_network/{}_fword_network.graphml".format(filedate))
 
 
     

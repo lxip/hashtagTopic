@@ -56,39 +56,39 @@ if __name__ == '__main__':
     # storePath = os.environ['BL_DATASTORE_DIR']+'/csys300/hashtagStore/'
     # savePath  = os.environ['BL_DATASTORE_DIR']+'/csys300/tagPerDay/' 
 
-########### process a certain time period
+########## process a certain time period
 
-    # dateS = ['2016-11-12-00-00','2016-11-13-00-00','2016-11-14-00-00','2016-11-15-00-00']
-    # dateE = ['2016-11-13-00-00','2016-11-14-00-00','2016-11-15-00-00','2016-11-16-00-00']
-    # for i in range(len(dateS)):
-    #     startT = dateS[i]
-    #     endT = dateE[i]
-    startT   = '2016-11-07-00-00'
-    endT     = '2016-11-07-03-00'
-    num4files = get_num4files(startT,endT)
-    filenames = [get_filename(startT,storePath)]
-    for i in range(num4files-1):
-        nextT = get_timestamp(startT)
-        filenames.append( get_filename(nextT,storePath) )
-        startT = nextT
-    print('%s FILES TO PROCESS.'%len(filenames)) 
+    dateS = ['2016-11-07-00-00','2016-11-08-00-00','2016-11-09-00-00','2016-11-10-00-00','2016-11-11-00-00','2016-11-12-00-00','2016-11-13-00-00','2016-11-14-00-00','2016-11-15-00-00']
+    dateE = ['2016-11-08-00-00','2016-11-09-00-00','2016-11-10-00-00','2016-11-11-00-00','2016-11-12-00-00','2016-11-13-00-00','2016-11-14-00-00','2016-11-15-00-00','2016-11-16-00-00']
+    for i in range(len(dateS)):
+        startT = dateS[i]
+        endT = dateE[i]
+    # startT   = '2016-11-07-00-00'
+    # endT     = '2016-11-08-00-00'
+        num4files = get_num4files(startT,endT)
+        filenames = [get_filename(startT,storePath)]
+        for i in range(num4files-1):
+            nextT = get_timestamp(startT)
+            filenames.append( get_filename(nextT,storePath) )
+            startT = nextT
+        print('%s FILES TO PROCESS.'%len(filenames)) 
 
-    saveT = startT[:10]
-    fout = gzip.open(savePath+saveT+'_test.json.gz','wt')
-    for ind,file in enumerate(filenames):
-        # print(ind,file[-33:])
-        tweetNum = count_lines(file)
-        dateTime = file[:16]
+        saveT = startT[:10]
+        fout = gzip.open(savePath+saveT+'_hashtagF.json.gz','wt')
+        for ind,file in enumerate(filenames):
+            # print(ind,file[-33:])
+            tweetNum = count_lines(file)
+            dateTime = file[:16]
 
-        try:
-            with gzip.open(file,'rt') as fin:
-                for linejson in fin:
-                    line = json.loads(linejson)
-                    json.dump(line, fout)
-                    fout.write('\n')
-        except FileNotFoundError:
-            continue
-    fout.close() 
+            try:
+                with gzip.open(file,'rt') as fin:
+                    for linejson in fin:
+                        line = json.loads(linejson)
+                        json.dump(line, fout)
+                        fout.write('\n')
+            except FileNotFoundError:
+                continue
+        fout.close() 
 
     elp_time = (time.time() - start_time)
     print("FINISHED in {:.2f} seconds.".format(elp_time) )
