@@ -35,6 +35,9 @@ def count_lines(filepath):
     num_lines = int(check_output('less %s|wc -l'%filepath,shell=True))
     return num_lines
 
+def nodes_connected(u, v):
+    return u in Ghashtag.neighbors(v)
+
 if __name__ == '__main__':
     start_time = time.time()
 
@@ -42,7 +45,7 @@ if __name__ == '__main__':
     storePath = os.environ['BL_DATASTORE_DIR']+'/csys300/tagPerDay/'
     # storePath = os.environ['BL_DATASTORE_DIR']+'/csys300/tagPerDayfilter/'
 
-    filedates = ['2016-11-07']#,'2016-11-08','2016-11-09','2016-11-10','2016-11-11',
+    filedates = ['2016-11-15']#,'2016-11-08','2016-11-09','2016-11-10','2016-11-11',
                 # '2016-11-12','2016-11-13','2016-11-14','2016-11-15']
     for filedate in filedates:
         # filename = storePath + filedate + '_hashtag.json.gz'
@@ -74,7 +77,11 @@ if __name__ == '__main__':
                     edges = list(combinations(line['hashtags'],2))
                     if len(edges):
                         for edge in edges:
-                            Ghashtag.add_edge(edge[0],edge[1])
+                            if edge[1] in Ghashtag.node and edge[0] in Ghashtag.node: 
+                                if nodes_connected(edge[0],edge[1]):
+                                    Ghashtag[edge[0]][edge[1]]["weight"] = Ghashtag[edge[0]][edge[1]]["weight"]+1
+                            else:
+                                Ghashtag.add_edge(edge[0],edge[1],weight=1)
         print('FINISH BUILDING NETWORK...')
         nx.write_graphml(Ghashtag, "./data_network/{}_fword_network.graphml".format(filedate))
 
