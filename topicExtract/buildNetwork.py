@@ -27,7 +27,7 @@ import bltools as blt
 
 def getFilename(filedate):
     """Return filename in certain directory."""
-    filename = check_output('find ./data_tag2count -type f -name "{}*_fword.*"'.format(filedate),shell=True)
+    filename = check_output('find ./data_tag2count -type f -name "{}*h2cEn.*"'.format(filedate),shell=True)
     return filename
 
 def count_lines(filepath):
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     storePath = os.environ['BL_DATASTORE_DIR']+'/csys300/tagPerDay/'
     # storePath = os.environ['BL_DATASTORE_DIR']+'/csys300/tagPerDayfilter/'
 
-    filedates = ['2016-11-15']#,'2016-11-08','2016-11-09','2016-11-10','2016-11-11',
+    filedates = ['2016-11-09']#,'2016-11-08','2016-11-09','2016-11-10','2016-11-11',
                 # '2016-11-12','2016-11-13','2016-11-14','2016-11-15']
     for filedate in filedates:
         # filename = storePath + filedate + '_hashtag.json.gz'
@@ -83,7 +83,7 @@ if __name__ == '__main__':
                             else:
                                 Ghashtag.add_edge(edge[0],edge[1],weight=1)
         print('FINISH BUILDING NETWORK...')
-        nx.write_graphml(Ghashtag, "./data_network/{}_fword_network.graphml".format(filedate))
+        nx.write_graphml(Ghashtag, "./data_network/{}_network.graphml".format(filedate))
 
 
     
